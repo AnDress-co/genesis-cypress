@@ -1,0 +1,102 @@
+﻿"Section","Title","Type","Priority","References","Preconditions","Steps","Expected Result"
+"Automatización Web - Génesis Fashion","TC-WEB-01 - Login de empleados: validación de pantalla, autenticación no exitosa y exitosa","Automated","Alta","RF-03 / CU-03 | /login | cypress/e2e/01_login_empleado.cy.ts","Frontend de Génesis Fashion corriendo en http://localhost:5173. Backend simulado con cy.intercept (no requiere base de datos).","1. Abrir la página /login
+2. Validar que la URL sea la esperada
+3. Validar que el título de la página sea el esperado
+4. Validar los textos visibles de la pantalla
+5. Validar elementos presentes: logo, inputs, botón y enlace de registro
+6. Validar estilos CSS: tipografía, colores, fondo, bordes
+7. Escribir un correo con formato inválido y enviar
+8. Enviar credenciales incorrectas y validar el mensaje de error
+9. Editar un campo y comprobar que el mensaje desaparece
+10. Enviar credenciales válidas y validar la redirección al Dashboard
+11. Validar el menú lateral para el rol Administrador (7 opciones)
+12. Validar el nombre y el rol del usuario autenticado
+13. Validar que la sesión quedó guardada en el navegador
+14. Cerrar sesión y validar el regreso a /login","1. La página carga sin errores
+2. La URL es http://localhost:5173/login
+3. El título es igual al configurado en TITULO_ESPERADO
+4. Se muestran GENESIS, ""Sistema Administrativo — Ropa Urbana"", ""Iniciar Sesión"", etiquetas y pie de página
+5. Existen logo ""G"", input de correo, input de contraseña, botón habilitado y enlace a /registro
+6. h1 36px/900/blanco/centrado; fuente sans-serif; tarjeta con radio 16px y padding 32px; botón indigo-600 con radio 8px
+7. El navegador bloquea el envío (checkValidity = false) y la URL sigue en /login
+8. El servidor responde 401 y se muestra ""Correo o contraseña incorrectos"" en rojo
+9. El mensaje de error deja de mostrarse
+10. La petición lleva usuario y contraseña; la URL pasa a ""/"" y se muestra el encabezado Dashboard
+11. Existen 7 enlaces (Dashboard, Productos, Categorías, Inventario, Clientes, Pedidos, Empleados) con su href; el activo tiene fondo indigo-600
+12. Se muestran ""Marlon Gómez"" y ""Administrador"" y el botón ""Cambiar Contraseña""
+13. localStorage contiene el token de la sesión
+14. La URL es /login, el token fue eliminado y se muestra ""Iniciar Sesión"""
+"Automatización Web - Génesis Fashion","TC-WEB-02 - Registro de usuarios: listas desplegables, validaciones y registro de cliente","Automated","Media","RF-09 | /registro | cypress/e2e/02_registro_cliente.cy.ts","Frontend de Génesis Fashion corriendo en http://localhost:5173. Registro simulado con cy.intercept para no crear usuarios reales.","1. Abrir la página /registro
+2. Validar URL y título de la página
+3. Validar los textos del selector de tipo de cuenta
+4. Validar elementos presentes: botones de tipo de cuenta y enlace a login
+5. Validar estilos CSS de títulos, tarjeta y botones
+6. Elegir ""Soy Empleado"" y validar que se solicita el código interno
+7. Ingresar un código incorrecto y validar el mensaje de error
+8. Volver al selector de tipo de cuenta
+9. Elegir ""Soy Cliente"" y validar el encabezado del formulario
+10. Validar las opciones de la lista desplegable ""Tipo de documento""
+11. Validar las opciones de la lista desplegable ""Género""
+12. Seleccionar opciones en ambas listas desplegables
+13. Llenar el formulario con datos válidos y contraseñas distintas
+14. Enviar con contraseñas distintas
+15. Corregir la confirmación y simular que el servidor rechaza el correo ya registrado
+16. Reenviar el formulario con el servidor aceptando el registro
+17. Validar la pantalla de registro exitoso
+18. Ir a iniciar sesión y validar la URL final","1. La página carga sin errores
+2. La URL es http://localhost:5173/registro y el título coincide con el esperado
+3. Se muestran ""¿Cómo deseas registrarte?"", ""Selecciona el tipo de cuenta"" y las descripciones de cada opción
+4. Existen los botones ""Soy Cliente"" y ""Soy Empleado"" habilitados y el enlace a /login
+5. h2 20px/700/blanco; botón con radio 12px, padding 16px, texto a la izquierda y fondo gray-800
+6. Se muestra ""Código interno requerido"" y ""Acceso para Empleados""
+7. Se muestra ""Código interno incorrecto"" en rojo
+8. Se vuelve a mostrar ""¿Cómo deseas registrarte?""
+9. Se muestran ""Registro — Cliente"", ""Crear cuenta de Cliente"", ""← Volver"" y el botón ""Crear cuenta""
+10. 4 opciones: Cédula de Ciudadanía (CC), Tarjeta de Identidad (TI), Cédula Extranjera (CE), Pasaporte (PP); valor inicial CC
+11. 4 opciones: Seleccionar, Masculino, Femenino, Otro
+12. Tipo de documento = TI y Género = F
+13. Todos los campos quedan con los datos ingresados
+14. Se muestra ""Las contraseñas no coinciden"" y no se envía ninguna petición al servidor
+15. Se muestra ""El correo ya está registrado"" y el formulario conserva los datos
+16. La petición contiene los 11 campos esperados y no incluye confirmarPassword
+17. Se muestra ""¡Registro exitoso!"", el mensaje de cuenta creada, el icono ✓ sobre fondo green-600 y el botón ""Ir a Iniciar Sesión""
+18. La URL es /login y se muestra ""Iniciar Sesión"""
+"Automatización Web - Génesis Fashion","TC-WEB-03 - Portal de clientes: login, menú desplegable, catálogo, carrito y pedido","Automated","Alta","RF-08 / RF-03 | /cliente/login | cypress/e2e/03_login_cliente_catalogo.cy.ts","Frontend de Génesis Fashion corriendo en http://localhost:5173 (con el menú de usuario desplegable en ClienteLayout.tsx). Login, productos, inventario y pedidos simulados con cy.intercept.","1. Abrir la página /cliente/login
+2. Validar URL y título de la página
+3. Validar los textos visibles del portal
+4. Validar elementos presentes: inputs, botón y enlaces
+5. Validar estilos CSS del portal
+6. Enviar credenciales incorrectas y validar el mensaje del servidor
+7. Enviar credenciales válidas y validar la redirección al catálogo
+8. Validar el menú de navegación del cliente y el botón de usuario
+9. Validar que el menú desplegable está cerrado y abrirlo con un clic
+10. Validar los elementos y estilos del menú desplegable
+11. Cerrar el menú con la tecla Escape y con un clic fuera de él
+12. Validar el encabezado del catálogo y el contador de productos
+13. Validar las tarjetas de producto: imagen, categoría, precio y botón Agregar
+14. Validar que el producto sin stock muestra ""Sin stock""
+15. Abrir la selección de talla y color y validar las opciones disponibles
+16. Elegir talla M, validar los colores disponibles y elegir Negro
+17. Agregar al carrito y validar el contenido del panel
+18. Realizar el pedido y validar el mensaje de éxito y el cuerpo de la petición
+19. Cerrar sesión desde el menú desplegable y validar el regreso a /cliente/login
+20. Intentar abrir el catálogo sin sesión","1. La página carga sin errores
+2. La URL es http://localhost:5173/cliente/login y el título coincide con el esperado
+3. Se muestran GENESIS, ""Portal de Clientes"", ""Iniciar Sesión"", etiquetas y los textos ""¿No tienes cuenta?"" y ""¿Eres empleado?""
+4. Existen input de correo, input de contraseña, botón habilitado y enlaces a /registro y /login
+5. h1 36px/900/blanco; fuente sans-serif; botón indigo-600 con radio 8px; enlace subrayado en indigo-400
+6. Se muestra ""Credenciales inválidas"" en rojo y la URL sigue en /cliente/login
+7. La URL pasa a /cliente/catalogo y el título se mantiene
+8. 2 enlaces (Catálogo activo en indigo-400 y Mis Pedidos en gray-400); botón ""Hola, Laura ▾"" visible, cerrado (aria-expanded false), radio 8px, 14px y fondo gray-800
+9. Antes del clic no existen las opciones; después del clic aria-expanded es true y las opciones son visibles
+10. 2 opciones: ""Mis Pedidos"" (enlace a /cliente/pedidos, gray-300, 14px) y ""Cerrar sesión"" (red-400); panel con radio 12px, ancho 192px y fondo gray-900
+11. El menú se cierra en ambos casos y aria-expanded vuelve a false
+12. h1 ""Catálogo"" 24px/700, texto ""2 productos disponibles"" y botón Carrito en indigo-600
+13. La imagen del producto está cargada; se muestran categoría, precio $89.900 y botón Agregar
+14. La tarjeta del Hoodie muestra ""Sin stock"" y no tiene botón Agregar
+15. Se muestran las tallas M y L; ""Agregar al carrito"" está deshabilitado con fondo gray-700; aún no hay colores
+16. Se muestran Negro y Blanco; el botón ""Agregar al carrito"" se habilita en indigo-600
+17. El panel muestra el producto, ""M · Negro"", ""x1"", total $89.900 y el botón ""Realizar pedido""
+18. La petición lleva idCliente 7, canal Online y el detalle del producto; se muestra ""¡Pedido realizado exitosamente!"" en verde
+19. La URL es /cliente/login y el token del cliente fue eliminado
+20. La aplicación redirige a /cliente/login"
